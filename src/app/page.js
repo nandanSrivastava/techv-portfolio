@@ -35,12 +35,15 @@ export default function Home() {
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
+  // Constants for consistent sizing
+  const ICON_SIZES = { sm: 16, md: 20, lg: 24 };
+  const SECTIONS = ["home", "about", "services", "portfolio", "contact"];
+
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "about", "services", "portfolio", "contact"];
       const scrollPosition = window.scrollY + 100;
 
-      for (const section of sections) {
+      for (const section of SECTIONS) {
         const element = document.getElementById(section);
         if (element) {
           const { offsetTop, offsetHeight } = element;
@@ -53,7 +56,6 @@ export default function Home() {
           }
         }
       }
-
       setShowScrollTop(window.scrollY > 400);
     };
 
@@ -68,18 +70,14 @@ export default function Home() {
     }
     setIsMenuOpen(false);
   };
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const navItems = [
-    { id: "home", label: "Home" },
-    { id: "about", label: "About" },
-    { id: "services", label: "Services" },
-    { id: "portfolio", label: "Portfolio" },
-    { id: "contact", label: "Contact" },
-  ];
+  const navItems = SECTIONS.map((section) => ({
+    id: section,
+    label: section.charAt(0).toUpperCase() + section.slice(1),
+  }));
 
   const services = [
     {
@@ -158,26 +156,6 @@ export default function Home() {
       link: "#",
     },
     {
-      title: "Healthcare App",
-      category: "Mobile Application",
-      description:
-        "Patient management system with appointment scheduling and telemedicine features.",
-      tech: ["React Native", "Firebase", "Redux", "Socket.io"],
-      image:
-        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop",
-      link: "#",
-    },
-    {
-      title: "Analytics Platform",
-      category: "Data Visualization",
-      description:
-        "Real-time business intelligence platform with interactive dashboards.",
-      tech: ["Vue.js", "D3.js", "Python", "AWS"],
-      image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      link: "#",
-    },
-    {
       title: "CRM System",
       category: "Enterprise Software",
       description:
@@ -200,10 +178,10 @@ export default function Home() {
   ];
 
   const stats = [
-    { number: "150+", label: "Projects Completed", icon: CheckCircle },
+    { number: "100+", label: "Projects Completed", icon: CheckCircle },
     { number: "50+", label: "Happy Clients", icon: Users },
-    { number: "8+", label: "Years Experience", icon: Calendar },
-    { number: "99%", label: "Client Satisfaction", icon: Star },
+    { number: "2+", label: "Years Experience", icon: Calendar },
+    { number: "100%", label: "Client Satisfaction", icon: Star },
   ];
 
   const testimonials = [
@@ -234,6 +212,46 @@ export default function Home() {
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
       rating: 5,
     },
+  ]; // Helper functions for consistent styling
+  const getSectionClasses = (bgColor = "bg-white") =>
+    `py-8 lg:py-16 xl:py-24 px-4 sm:px-6 lg:px-8 min-h-[60vh] lg:min-h-[80vh] xl:min-h-[90vh] flex flex-col justify-center ${bgColor}`;
+
+  const getContainerClasses = (maxWidth = "max-w-3xl") => `${maxWidth} mx-auto`;
+
+  const getHeaderClasses = () => "text-center mb-3";
+
+  const getTitleClasses = () => "text-lg font-bold text-gray-900 mb-1";
+
+  const getSubtitleClasses = () => "text-xs text-gray-600 max-w-md mx-auto";
+  const ContactInfo = ({ icon: Icon, title, items }) => (
+    <div className="flex items-start justify-center sm:justify-start">
+      <Icon className="h-4 w-4 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
+      <div className="text-center sm:text-left">
+        <h4 className="font-semibold text-gray-900 text-sm">{title}</h4>
+        {items.map((item, index) => (
+          <p key={index} className="text-gray-600 text-xs">
+            {item}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+
+  const SocialIcon = ({
+    href = "#",
+    icon: Icon,
+    size = ICON_SIZES.sm,
+    className = "",
+  }) => (
+    <a href={href} className={`transition-colors ${className}`}>
+      <Icon size={size} />
+    </a>
+  );
+
+  const socialIcons = [
+    { icon: Github, href: "#" },
+    { icon: Linkedin, href: "#" },
+    { icon: Twitter, href: "#" },
   ];
 
   return (
@@ -242,14 +260,20 @@ export default function Home() {
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
+            {" "}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="text-2xl font-bold text-gray-900"
+              className="flex items-center"
             >
-              Tech<span className="text-blue-600">V</span>
+              <Image
+                src="/techv_logo.png"
+                alt="TechV Logo"
+                width={120}
+                height={40}
+                className="h-8 w-auto"
+              />
             </motion.div>
-
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
               {navItems.map((item) => (
@@ -266,7 +290,6 @@ export default function Home() {
                 </button>
               ))}
             </div>
-
             {/* Mobile menu button */}
             <button
               className="md:hidden text-gray-700 p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -301,10 +324,11 @@ export default function Home() {
             </div>
           </motion.div>
         )}
-      </nav>{" "}      {/* Hero Section */}
+      </nav>{" "}
+      {/* Hero Section */}
       <section
         id="home"
-        className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 lg:pt-24"
+        className="relative min-h-[80vh] lg:min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-20 lg:pt-24 pb-8 lg:pb-0"
       >
         <motion.div
           style={{ opacity }}
@@ -317,7 +341,8 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {" "}            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-3">
+            {" "}
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-3">
               Building Digital
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
                 Excellence
@@ -342,8 +367,9 @@ export default function Home() {
                 Get Started
               </button>
             </div>
-          </motion.div>{" "}          {/* Stats Section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+          </motion.div>{" "}
+          {/* Stats Section */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 mb-8 lg:mb-0">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -361,29 +387,33 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>{" "}      {/* About Section */}
-      <section id="about" className="py-8 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-5xl mx-auto">          <motion.div
+      </section>{" "}
+      {/* About Section */}
+      <section id="about" className={getSectionClasses()}>
+        <div className={getContainerClasses("max-w-5xl")}>
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-6"
+            className={getHeaderClasses()}
           >
+            {" "}
             <h2 className="text-2xl font-bold text-gray-900 mb-3">
               About TechV
-            </h2>
-            <p className="text-base text-gray-600 max-w-xl mx-auto">
+            </h2>{" "}
+            <p className="text-gray-600 max-w-xl mx-auto text-sm">
               We are a team of passionate developers, designers, and strategists
               committed to delivering exceptional digital solutions.
             </p>
           </motion.div>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-            >              <h3 className="text-lg font-bold text-gray-900 mb-3">
+            >
+              {" "}
+              <h3 className="text-lg font-bold text-gray-900 mb-3">
                 Our Mission
               </h3>
               <p className="text-gray-600 mb-3 leading-relaxed text-sm">
@@ -391,13 +421,12 @@ export default function Home() {
                 businesses. Our mission is to create innovative digital
                 solutions that not only meet but exceed our clients'
                 expectations.
-              </p>
+              </p>{" "}
               <p className="text-gray-600 mb-4 leading-relaxed text-sm">
                 We combine technical expertise with creative thinking to deliver
                 projects that drive real business results and provide
                 exceptional user experiences.
               </p>
-
               <div className="space-y-2">
                 {[
                   "Expert Development Team",
@@ -419,7 +448,8 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="relative"
             >
-              {" "}              <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-4 text-white">
+              {" "}
+              <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-4 text-white">
                 <h4 className="text-lg font-bold mb-3">Why Choose TechV?</h4>
                 <ul className="space-y-3">
                   <li className="flex items-center">
@@ -443,37 +473,36 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-      </section>{" "}      {/* Services Section */}
-      <section id="services" className="py-4 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-3xl mx-auto">
+      </section>{" "}
+      {/* Services Section */}
+      <section id="services" className={getSectionClasses("bg-gray-50")}>
+        <div className={getContainerClasses()}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-3"
+            className={getHeaderClasses()}
           >
-            <h2 className="text-lg font-bold text-gray-900 mb-1">
-              Our Services
-            </h2>
-            <p className="text-xs text-gray-600 max-w-md mx-auto">
+            <h2 className={getTitleClasses()}>Our Services</h2>
+            <p className={getSubtitleClasses()}>
               Digital solutions to help your business thrive.
             </p>
-          </motion.div>
-
+          </motion.div>{" "}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {services.map((service, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}                className="bg-white rounded-lg shadow-md p-2 hover:shadow-lg transition-shadow duration-300"
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                className="bg-white rounded-lg shadow-md p-2 hover:shadow-lg transition-shadow duration-300"
               >
                 <div className="flex items-start gap-2">
                   <div
                     className={`w-6 h-6 rounded-lg bg-gradient-to-r ${service.color} flex items-center justify-center flex-shrink-0`}
                   >
                     <service.icon className="h-3 w-3 text-white" />
-                  </div>
+                  </div>{" "}
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm font-bold text-gray-900 mb-1">
                       {service.title}
@@ -490,37 +519,38 @@ export default function Home() {
                           <CheckCircle className="h-2 w-2 text-green-500 mr-1" />
                           {feature}
                         </span>
-                      ))}                    </div>
+                      ))}{" "}
+                    </div>
                   </div>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
-      </section>      <section id="portfolio" className="py-4 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-3xl mx-auto">
+      </section>{" "}
+      <section id="portfolio" className={getSectionClasses()}>
+        <div className={getContainerClasses()}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-3"
+            className={getHeaderClasses()}
           >
-            <h2 className="text-lg font-bold text-gray-900 mb-1">
-              Our Portfolio
-            </h2>
-            <p className="text-xs text-gray-600 max-w-md mx-auto">
+            <h2 className={getTitleClasses()}>Our Portfolio</h2>
+            <p className={getSubtitleClasses()}>
               Latest projects and digital transformations.
             </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          </motion.div>{" "}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 lg:gap-6 xl:gap-8">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}                className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300"
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300"
               >
+                {" "}
                 <div className="flex gap-2 p-2">
                   <div className="relative overflow-hidden flex-shrink-0">
                     <Image
@@ -545,6 +575,7 @@ export default function Home() {
                       {project.description}
                     </p>
                     <div className="flex flex-wrap gap-0.5">
+                      {" "}
                       {project.tech.slice(0, 3).map((tech, techIndex) => (
                         <span
                           key={techIndex}
@@ -562,7 +593,8 @@ export default function Home() {
                   </div>
                 </div>
               </motion.div>
-            ))}          </div>
+            ))}{" "}
+          </div>
         </div>
       </section>
       <section className="py-8 px-4 sm:px-6 lg:px-8 bg-gray-50">
@@ -570,7 +602,8 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}            className="text-center mb-6"
+            transition={{ duration: 0.8 }}
+            className="text-center mb-6"
           >
             <h2 className="text-2xl font-bold text-gray-900 mb-3">
               What Our Clients Say
@@ -622,29 +655,28 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>{" "}      {/* Contact Section */}
-      <section id="contact" className="py-4 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-3xl mx-auto">
+      </section>{" "}
+      {/* Contact Section */}
+      <section id="contact" className={getSectionClasses()}>
+        <div className={getContainerClasses()}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-3"
+            className={getHeaderClasses()}
           >
-            <h2 className="text-lg font-bold text-gray-900 mb-1">
-              Let's Start Your Project
-            </h2>
-            <p className="text-xs text-gray-600 max-w-md mx-auto">
+            <h2 className={getTitleClasses()}>Let's Start Your Project</h2>
+            <p className={getSubtitleClasses()}>
               Ready to transform your business? Get in touch today.
             </p>
           </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-            {/* Contact Form */}{" "}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:items-start">
+            {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}              className="bg-gray-50 rounded-lg p-3"
+              transition={{ duration: 0.8 }}
+              className="bg-gray-50 rounded-lg p-3 order-1 lg:order-1"
             >
               <h3 className="text-base font-bold text-gray-900 mb-2">
                 Send us a Message
@@ -679,7 +711,8 @@ export default function Home() {
                       placeholder="your.email@example.com"
                     />
                   </div>
-                </div>                <div>
+                </div>{" "}
+                <div>
                   <label
                     htmlFor="company"
                     className="block text-xs font-medium text-gray-700 mb-1"
@@ -715,43 +748,41 @@ export default function Home() {
                   <ArrowRight size={16} />
                 </button>
               </form>
-            </motion.div>
-            {/* Contact Info */}{" "}
+            </motion.div>{" "}
+            {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}              className="space-y-3"
+              transition={{ duration: 0.8 }}
+              className="space-y-3 order-2 lg:order-2 text-center lg:text-left"
             >
-              <div>
+              {" "}
+              <div className="text-center lg:text-left">
+                {" "}
                 <h3 className="text-base font-bold text-gray-900 mb-2">
                   Get in Touch
                 </h3>
-                <div className="space-y-2">
-                  <div className="flex items-start">
-                    <Mail className="h-4 w-4 text-blue-600 mr-3 mt-0.5" />
-                    <div>
-                      <h4 className="font-semibold text-gray-900 text-sm">Email</h4>
-                      <p className="text-gray-600 text-xs">hello@techv.com</p>
-                      <p className="text-gray-600 text-xs">support@techv.com</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Phone className="h-4 w-4 text-blue-600 mr-3 mt-0.5" />
-                    <div>
-                      <h4 className="font-semibold text-gray-900 text-sm">Phone</h4>
-                      <p className="text-gray-600 text-xs">+91 9065628583</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <MapPin className="h-4 w-4 text-blue-600 mr-3 mt-0.5" />
-                    <div>
-                      <h4 className="font-semibold text-gray-900 text-sm">Office</h4>                      <p className="text-gray-600 text-xs">123 Innovation Drive</p>
-                      <p className="text-gray-600 text-xs">TFT Colony, Valmikinagar</p>
-                    </div>
-                  </div>
+                <div className="space-y-2 flex flex-col items-center lg:items-start">
+                  <ContactInfo
+                    icon={Mail}
+                    title="Email"
+                    items={["hello@techv.com", "support@techv.com"]}
+                  />
+                  <ContactInfo
+                    icon={Phone}
+                    title="Phone"
+                    items={["+91 9065628583"]}
+                  />{" "}
+                  <ContactInfo
+                    icon={MapPin}
+                    title="Office"
+                    items={[
+                      "TFT Colony, Valmikinagar,",
+                      "West Champaran, Bihar, 845107",
+                    ]}
+                  />
                 </div>
               </div>
-
               <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg p-3 text-white">
                 <h4 className="text-sm font-bold mb-1">Ready to Start?</h4>
                 <p className="mb-2 text-xs">
@@ -763,17 +794,17 @@ export default function Home() {
                     className="bg-white text-blue-600 px-3 py-1.5 rounded text-xs font-semibold hover:bg-gray-100 transition-colors"
                   >
                     Get Started
-                  </button>
+                  </button>{" "}
                   <div className="flex space-x-3">
-                    <a href="#" className="text-white/80 hover:text-white transition-colors">
-                      <Github size={16} />
-                    </a>
-                    <a href="#" className="text-white/80 hover:text-white transition-colors">
-                      <Linkedin size={16} />
-                    </a>
-                    <a href="#" className="text-white/80 hover:text-white transition-colors">
-                      <Twitter size={16} />
-                    </a>                  </div>
+                    {socialIcons.map((social, index) => (
+                      <SocialIcon
+                        key={index}
+                        icon={social.icon}
+                        href={social.href}
+                        className="text-white/80 hover:text-white"
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -782,33 +813,32 @@ export default function Home() {
       </section>
       <footer className="bg-gray-900 text-white py-6">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          {" "}
           <div className="text-center">
-            <div className="text-lg font-bold mb-2">
-              Tech<span className="text-blue-400">V</span>
+            <div className="flex justify-center mb-2">
+              <Image
+                src="/techv_logo.png"
+                alt="TechV Logo"
+                width={100}
+                height={35}
+                className="h-6 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-gray-400 mb-3 text-sm">
               Building digital excellence, one project at a time.
-            </p>
+            </p>{" "}
             <div className="flex justify-center space-x-6 mb-4">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Github size={24} />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Linkedin size={24} />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Twitter size={24} />
-              </a>
-            </div>{" "}            <div className="border-t border-gray-800 pt-4">
+              {socialIcons.map((social, index) => (
+                <SocialIcon
+                  key={index}
+                  icon={social.icon}
+                  href={social.href}
+                  size={ICON_SIZES.lg}
+                  className="text-gray-400 hover:text-white"
+                />
+              ))}
+            </div>
+            <div className="border-t border-gray-800 pt-4">
               <p className="text-gray-400 text-sm">
                 © 2025 TechV. All rights reserved.
               </p>
