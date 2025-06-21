@@ -12,6 +12,11 @@ export const metadata = {
     "TechV builds exceptional websites and software solutions for businesses. Expert web development, mobile apps, and custom software.",
   keywords:
     "web development, software development, mobile apps, TechV, custom software, responsive design",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({ children }) {
