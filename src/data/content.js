@@ -1,4 +1,14 @@
-import { Code, Smartphone, Globe, Zap, Users, Award, CheckCircle, Calendar, Star } from "lucide-react";
+import {
+  Code,
+  Smartphone,
+  Globe,
+  Zap,
+  Users,
+  Award,
+  CheckCircle,
+  Calendar,
+  Star,
+} from "lucide-react";
 
 export const services = [
   {
@@ -99,38 +109,29 @@ export const projects = [
 ];
 
 export const stats = [
-  { number: "100+", label: "Projects Completed", icon: CheckCircle },
-  { number: "50+", label: "Happy Clients", icon: Users },
-  { number: "2+", label: "Years Experience", icon: Calendar },
+  { number: "10+", label: "Projects Completed", icon: CheckCircle },
+  { number: "10+", label: "Happy Clients", icon: Users },
+  { number: "1+", label: "Years Experience", icon: Calendar },
   { number: "100%", label: "Client Satisfaction", icon: Star },
 ];
 
 export const testimonials = [
   {
-    name: "Sarah Johnson",
-    position: "CEO, Digital Innovations",
+    name: "~ Ripuraj Agro",
     content:
-      "TechV transformed our business with their exceptional web development services. Professional, timely, and innovative.",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+      "TechV completely transformed our business with their outstanding web development services — professional, timely, and truly innovative.",
     rating: 5,
   },
   {
-    name: "Michael Chen",
-    position: "CTO, StartupFlow",
+    name: "~ The Magic Monks",
     content:
       "Outstanding technical expertise and project management. They delivered exactly what we needed and more.",
-    avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
     rating: 5,
   },
   {
-    name: "Emily Rodriguez",
-    position: "Marketing Director, GrowthCorp",
+    name: "~ Valmiki Vihar Tour & Travels",
     content:
-      "The team's attention to detail and commitment to quality is unmatched. Highly recommend TechV.",
-    avatar:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+      "TechV’s attention to detail and commitment to quality are truly unmatched. I highly recommend their services.",
     rating: 5,
   },
 ];

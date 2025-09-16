@@ -41,12 +41,14 @@ export default function HeroSection({
               View Our Work
               <ArrowRight size={18} />
             </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-5 py-2.5 rounded-lg font-semibold transition-all duration-300"
+            <a
+              href="https://wa.me/9065628583"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-5 py-2.5 rounded-lg font-semibold transition-all duration-300 inline-flex items-center justify-center"
             >
               Get Started
-            </button>
+            </a>
           </div>
         </motion.div>
 

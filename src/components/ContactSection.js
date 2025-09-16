@@ -163,12 +163,14 @@ export default function ContactSection({ scrollToSection }) {
                 Let's discuss your project and turn your vision into reality.
               </p>
               <div className="flex justify-between items-center">
-                <button
-                  onClick={() => scrollToSection("home")}
-                  className="bg-white text-blue-600 px-3 py-1.5 rounded text-xs font-semibold hover:bg-gray-100 transition-colors"
+                <a
+                  href="https://wa.me/9065628583"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white text-blue-600 px-3 py-1.5 rounded text-xs font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center"
                 >
                   Get Started
-                </button>
+                </a>
                 <div className="flex space-x-3">
                   {socialIcons.map((social, index) => (
                     <SocialIcon

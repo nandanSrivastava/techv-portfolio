@@ -44,20 +44,10 @@ export default function TestimonialsSection({ testimonials }) {
                 "{testimonial.content}"
               </p>
               <div className="flex items-center">
-                <Image
-                  src={testimonial.avatar}
-                  alt={testimonial.name}
-                  width={50}
-                  height={50}
-                  className="w-12 h-12 rounded-full mr-4"
-                />
                 <div>
                   <h4 className="font-semibold text-gray-900">
                     {testimonial.name}
                   </h4>
-                  <p className="text-gray-600 text-sm">
-                    {testimonial.position}
-                  </p>
                 </div>
               </div>
             </motion.div>
