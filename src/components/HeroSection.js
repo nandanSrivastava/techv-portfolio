@@ -31,8 +31,7 @@ export default function HeroSection({
             </span>
           </h1>
           <p className="text-base sm:text-lg text-gray-600 max-w-xl mx-auto mb-4 leading-relaxed">
-            We craft exceptional websites and software solutions that drive
-            business growth and deliver outstanding user experiences.
+            We don’t just build websites — we engineer digital experiences that spark growth and wow your users.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <button
