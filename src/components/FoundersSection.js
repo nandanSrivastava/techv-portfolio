@@ -9,12 +9,12 @@ export default function FoundersSection() {
     },
     {
       name: "Rahul Shrivastava",
-      position: "Founder & CTO",
+      position: "Co-Founder",
       image: "/icon.png",
     },
     {
       name: "Nandan Shrivastava",
-      position: "Founder & COO",
+      position: "Co-Founder",
       image: "https://via.placeholder.com/240x240.png?text=Founder",
     },
   ];
