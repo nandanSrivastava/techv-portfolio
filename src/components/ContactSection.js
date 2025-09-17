@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, ArrowRight, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight, Github, Linkedin, Twitter, Instagram } from "lucide-react";
 
 const ContactInfo = ({ icon: Icon, title, items }) => (
   <div className="flex items-start justify-center sm:justify-start">
@@ -18,7 +18,7 @@ const ContactInfo = ({ icon: Icon, title, items }) => (
 );
 
 const SocialIcon = ({ href = "#", icon: Icon, size = 16, className = "" }) => (
-  <a href={href} className={`transition-colors ${className}`}>
+  <a href={href} target="_blank" rel="noopener noreferrer" className={`transition-colors ${className}`}>
     <Icon size={size} />
   </a>
 );
@@ -28,6 +28,7 @@ export default function ContactSection({ scrollToSection }) {
     { icon: Github, href: "#" },
     { icon: Linkedin, href: "#" },
     { icon: Twitter, href: "#" },
+    { icon: Instagram, href: "https://www.instagram.com/thetechv/" },
   ];
 
   return (

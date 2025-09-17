@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Twitter, Instagram } from "lucide-react";
 
 const SocialIcon = ({ href = "#", icon: Icon, size = 24, className = "" }) => (
-  <a href={href} className={`transition-colors ${className}`}>
+  <a href={href} target="_blank" rel="noopener noreferrer" className={`transition-colors ${className}`}>
     <Icon size={size} />
   </a>
 );
@@ -13,7 +13,8 @@ export default function Footer() {
   const socialIcons = [
     { icon: Github, href: "#" },
     { icon: Linkedin, href: "#" },
-    { icon: Twitter, href: "#" },
+    { icon: Twitter, href: "https://twitter.com/" },
+    { icon: Instagram, href: "https://www.instagram.com/thetechv/" },
   ];
 
   return (
