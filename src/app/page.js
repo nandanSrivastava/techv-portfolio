@@ -10,6 +10,7 @@ import AboutSection from "../components/AboutSection";
 import ServicesSection from "../components/ServicesSection";
 import PortfolioSection from "../components/PortfolioSection";
 import TestimonialsSection from "../components/TestimonialsSection";
+import FoundersSection from "../components/FoundersSection";
 import ContactSection from "../components/ContactSection";
 import Footer from "../components/Footer";
 import ScrollToTopButton from "../components/ScrollToTopButton";
@@ -88,6 +89,8 @@ export default function Home() {
       <PortfolioSection projects={projects} />
       
       <TestimonialsSection testimonials={testimonials} />
+ 
+      <FoundersSection />
       
       <ContactSection scrollToSection={scrollToSection} />
       

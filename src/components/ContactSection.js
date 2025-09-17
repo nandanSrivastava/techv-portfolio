@@ -152,8 +152,7 @@ export default function ContactSection({ scrollToSection }) {
                   icon={MapPin}
                   title="Office"
                   items={[
-                    "Valmikinagar,",
-                    "West Champaran, Bihar, 845107",
+                    "Noida, Uttar Pradesh, India",
                   ]}
                 />
               </div>
