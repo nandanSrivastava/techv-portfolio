@@ -138,21 +138,21 @@ export default function ContactSection({ scrollToSection }) {
                 Get in Touch
               </h3>
               <div className="space-y-2 flex flex-col items-center lg:items-start">
-                <ContactInfo
+                {/* <ContactInfo
                   icon={Mail}
                   title="Email"
                   items={["hello@techv.com", "support@techv.com"]}
-                />
+                /> */}
                 <ContactInfo
                   icon={Phone}
                   title="Phone"
-                  items={["+91 9065628583"]}
+                  items={["+91 9065628583", "+91 7320885821", "+91 7782082155"]}
                 />
                 <ContactInfo
                   icon={MapPin}
                   title="Office"
                   items={[
-                    "TFT Colony, Valmikinagar,",
+                    "Valmikinagar,",
                     "West Champaran, Bihar, 845107",
                   ]}
                 />
