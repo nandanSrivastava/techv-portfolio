@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { Mail, Phone, MapPin, ArrowRight, Github, Linkedin, Twitter, Instagram } from "lucide-react";
 
 const ContactInfo = ({ icon: Icon, title, items }) => (
@@ -24,6 +25,40 @@ const SocialIcon = ({ href = "#", icon: Icon, size = 16, className = "" }) => (
 );
 
 export default function ContactSection({ scrollToSection }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [message, setMessage] = useState("");
+
+  const whatsappNumber = "9065628583"; // target number (no +)
+
+  const formatWhatsappMessage = ({ name, email, company, message }) => {
+    const lines = [];
+    lines.push(`Hi, this is ${name || "[Name]"}.`);
+    if (company) lines.push(`Company: ${company}`);
+    if (email) lines.push(`Email: ${email}`);
+    lines.push("\nProject details:");
+    lines.push(message || "[No message provided]");
+    lines.push("\nPlease let me know the next steps and an estimated timeline.\nThank you.");
+    return lines.join("\n");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Basic validation
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      alert("Please fill in your name, email and a short message before sending.");
+      return;
+    }
+
+    const text = formatWhatsappMessage({ name: name.trim(), email: email.trim(), company: company.trim(), message: message.trim() });
+    const encoded = encodeURIComponent(text);
+    const url = `https://wa.me/${whatsappNumber}?text=${encoded}`;
+
+    // Open in new tab/window
+    window.open(url, "_blank");
+  };
   const socialIcons = [
     { icon: Github, href: "#" },
     { icon: Linkedin, href: "#" },
@@ -57,7 +92,7 @@ export default function ContactSection({ scrollToSection }) {
             <h3 className="text-base font-bold text-gray-900 mb-2">
               Send us a Message
             </h3>
-            <form className="space-y-2  text-gray-700">
+            <form onSubmit={handleSubmit} className="space-y-2  text-gray-700">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <label
@@ -69,6 +104,8 @@ export default function ContactSection({ scrollToSection }) {
                   <input
                     type="text"
                     id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-sm"
                     placeholder="Your full name"
                   />
@@ -83,6 +120,8 @@ export default function ContactSection({ scrollToSection }) {
                   <input
                     type="email"
                     id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-sm"
                     placeholder="email@example.com"
                   />
@@ -98,6 +137,8 @@ export default function ContactSection({ scrollToSection }) {
                 <input
                   type="text"
                   id="company"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-sm"
                   placeholder="Your company name"
                 />
@@ -112,6 +153,8 @@ export default function ContactSection({ scrollToSection }) {
                 <textarea
                   id="message"
                   rows={2}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none text-sm"
                   placeholder="Tell us about your project..."
                 ></textarea>
