@@ -57,7 +57,7 @@ export default function ContactSection({ scrollToSection }) {
             <h3 className="text-base font-bold text-gray-900 mb-2">
               Send us a Message
             </h3>
-            <form className="space-y-2">
+            <form className="space-y-2  text-gray-700">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <label
@@ -84,7 +84,7 @@ export default function ContactSection({ scrollToSection }) {
                     type="email"
                     id="email"
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-sm"
-                    placeholder="your.email@example.com"
+                    placeholder="email@example.com"
                   />
                 </div>
               </div>
@@ -105,7 +105,7 @@ export default function ContactSection({ scrollToSection }) {
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-xs font-medium text-gray-700 mb-1"
+                  className="block text-xs font-medium mb-1"
                 >
                   Message
                 </label>
