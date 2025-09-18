@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, ArrowRight, Github, Linkedin, Twitter } from "lucide-react";
+import { useState } from "react";
+import { Mail, Phone, MapPin, ArrowRight, Github, Linkedin, Twitter, Instagram } from "lucide-react";
 
 const ContactInfo = ({ icon: Icon, title, items }) => (
   <div className="flex items-start justify-center sm:justify-start">
@@ -18,16 +19,51 @@ const ContactInfo = ({ icon: Icon, title, items }) => (
 );
 
 const SocialIcon = ({ href = "#", icon: Icon, size = 16, className = "" }) => (
-  <a href={href} className={`transition-colors ${className}`}>
+  <a href={href} target="_blank" rel="noopener noreferrer" className={`transition-colors ${className}`}>
     <Icon size={size} />
   </a>
 );
 
 export default function ContactSection({ scrollToSection }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [message, setMessage] = useState("");
+
+  const whatsappNumber = "9065628583"; // target number (no +)
+
+  const formatWhatsappMessage = ({ name, email, company, message }) => {
+    const lines = [];
+    lines.push(`Hi, this is ${name || "[Name]"}.`);
+    if (company) lines.push(`Company: ${company}`);
+    if (email) lines.push(`Email: ${email}`);
+    lines.push("\nProject details:");
+    lines.push(message || "[No message provided]");
+    lines.push("\nPlease let me know the next steps and an estimated timeline.\nThank you.");
+    return lines.join("\n");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Basic validation
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      alert("Please fill in your name, email and a short message before sending.");
+      return;
+    }
+
+    const text = formatWhatsappMessage({ name: name.trim(), email: email.trim(), company: company.trim(), message: message.trim() });
+    const encoded = encodeURIComponent(text);
+    const url = `https://wa.me/${whatsappNumber}?text=${encoded}`;
+
+    // Open in new tab/window
+    window.open(url, "_blank");
+  };
   const socialIcons = [
     { icon: Github, href: "#" },
     { icon: Linkedin, href: "#" },
     { icon: Twitter, href: "#" },
+    { icon: Instagram, href: "https://www.instagram.com/thetechv/" },
   ];
 
   return (
@@ -56,7 +92,7 @@ export default function ContactSection({ scrollToSection }) {
             <h3 className="text-base font-bold text-gray-900 mb-2">
               Send us a Message
             </h3>
-            <form className="space-y-2">
+            <form onSubmit={handleSubmit} className="space-y-2  text-gray-700">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                   <label
@@ -68,6 +104,8 @@ export default function ContactSection({ scrollToSection }) {
                   <input
                     type="text"
                     id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-sm"
                     placeholder="Your full name"
                   />
@@ -82,8 +120,10 @@ export default function ContactSection({ scrollToSection }) {
                   <input
                     type="email"
                     id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-sm"
-                    placeholder="your.email@example.com"
+                    placeholder="email@example.com"
                   />
                 </div>
               </div>
@@ -97,6 +137,8 @@ export default function ContactSection({ scrollToSection }) {
                 <input
                   type="text"
                   id="company"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-sm"
                   placeholder="Your company name"
                 />
@@ -104,13 +146,15 @@ export default function ContactSection({ scrollToSection }) {
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-xs font-medium text-gray-700 mb-1"
+                  className="block text-xs font-medium mb-1"
                 >
                   Message
                 </label>
                 <textarea
                   id="message"
                   rows={2}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none text-sm"
                   placeholder="Tell us about your project..."
                 ></textarea>
@@ -137,22 +181,21 @@ export default function ContactSection({ scrollToSection }) {
                 Get in Touch
               </h3>
               <div className="space-y-2 flex flex-col items-center lg:items-start">
-                <ContactInfo
+                {/* <ContactInfo
                   icon={Mail}
                   title="Email"
                   items={["hello@techv.com", "support@techv.com"]}
-                />
+                /> */}
                 <ContactInfo
                   icon={Phone}
                   title="Phone"
-                  items={["+91 9065628583"]}
+                  items={["+91 9065628583", "+91 7320885821", "+91 7782082155"]}
                 />
                 <ContactInfo
                   icon={MapPin}
                   title="Office"
                   items={[
-                    "TFT Colony, Valmikinagar,",
-                    "West Champaran, Bihar, 845107",
+                    "Noida, Uttar Pradesh, India",
                   ]}
                 />
               </div>
