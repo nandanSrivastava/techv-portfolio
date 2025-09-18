@@ -5,17 +5,17 @@ export default function FoundersSection() {
     {
       name: "Rahul Raj",
       position: "Founder & CEO",
-      image: "/techv_logo.png",
+      image: "/rahul.jpg",
     },
     {
       name: "Rahul Shrivastava",
-      position: "Co-Founder",
-      image: "/icon.png",
+      position: "Co-Founder & CMO",
+      image: "/mithu.png",
     },
     {
       name: "Nandan Shrivastava",
-      position: "Co-Founder",
-      image: "https://via.placeholder.com/240x240.png?text=Founder",
+      position: "Co-Founder & CTO",
+      image: "/nandan.png",
     },
   ];
 
